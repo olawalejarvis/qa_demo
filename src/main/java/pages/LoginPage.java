@@ -36,4 +36,16 @@ public class LoginPage {
     public static WebElement getRememberMe(WebDriver driver) {
         return driver.findElement(By.cssSelector("#customer_login > div.u-column1.col-1 > form > p:nth-child(3) > label"));
     }
+
+    public static WebElement getInvalidErrorMessage(WebDriver driver) {
+        return driver.findElement(By.cssSelector("#page-36 > div > div.woocommerce > ul > li"));
+    }
+
+    public static WebElement getLogoutLink(WebDriver driver) {
+        return driver.findElement(By.cssSelector("#page-36 > div > div.woocommerce > nav > ul > li.woocommerce-MyAccount-navigation-link.woocommerce-MyAccount-navigation-link--customer-logout > a"));
+    }
+
+    public static WebElement getDashboardLink(WebDriver driver) {
+        return driver.findElement(By.cssSelector("#page-36 > div > div.woocommerce > nav > ul > li.woocommerce-MyAccount-navigation-link.woocommerce-MyAccount-navigation-link--dashboard.is-active > a"));
+    }
 }

@@ -51,18 +51,8 @@ public class RegisterTest extends BaseTestClass{
 
     @Test(dependsOnGroups = "Default", groups = "InvalidRegistrationCredentials", dataProvider = "invalidRegistrationPasswordCredentials")
     public void invalidPasswordTest(String email, String password) {
-        WebElement emailField = RegisterPage.getEmailInputField(driver);
-        WebElement passwordField = RegisterPage.getPasswordInputField(driver);
-        // clear
-        emailField.sendKeys(Keys.CONTROL, "a");
-        emailField.sendKeys(Keys.BACK_SPACE);
 
-        passwordField.sendKeys(Keys.CONTROL, "a");
-        passwordField.sendKeys(Keys.BACK_SPACE);
-
-        // enter value
-        emailField.sendKeys(email);
-        passwordField.sendKeys(password);
+        registerUser(email, password);
 
         Assert.assertTrue(RegisterPage.getWeakPasswordText(driver).isDisplayed());
         Assert.assertTrue(RegisterPage.getWeakPasswordHintText(driver).isDisplayed());
@@ -76,18 +66,8 @@ public class RegisterTest extends BaseTestClass{
 
     @Test(dependsOnGroups = "Default", groups = "InvalidRegistrationCredentials", dataProvider = "invalidRegistrationEmailCredentials")
     public void invalidEmailTest(String email, String password) {
-        WebElement emailField = RegisterPage.getEmailInputField(driver);
-        WebElement passwordField = RegisterPage.getPasswordInputField(driver);
-        // clear
-        emailField.sendKeys(Keys.CONTROL, "a");
-        emailField.sendKeys(Keys.BACK_SPACE);
-
-        passwordField.sendKeys(Keys.CONTROL, "a");
-        passwordField.sendKeys(Keys.BACK_SPACE);
-
-        // enter value
-        emailField.sendKeys(email);
-        passwordField.sendKeys(password);
+        registerUser(email, password);
+        RegisterPage.getRegisterButton(driver).click();
 
         // Assert that Register is still present
         Assert.assertTrue(RegisterPage.getRegisterLabel(driver).isDisplayed());
@@ -97,21 +77,14 @@ public class RegisterTest extends BaseTestClass{
 
     @Test(dependsOnGroups = "InvalidRegistrationCredentials")
     public void registerWithValidCredentialsTest() {
-        WebElement emailField = RegisterPage.getEmailInputField(driver);
-        WebElement passwordField = RegisterPage.getPasswordInputField(driver);
-        // clear
-        emailField.sendKeys(Keys.CONTROL, "a");
-        emailField.sendKeys(Keys.BACK_SPACE);
-
-        passwordField.sendKeys(Keys.CONTROL, "a");
-        passwordField.sendKeys(Keys.BACK_SPACE);
 
         Random rand = new Random();
         int  randomNumber = rand.nextInt(50) + 1;
 
-        // enter value
-        emailField.sendKeys("qademo" + randomNumber + "@mail.com");
-        passwordField.sendKeys("Pass9833Whsh!@##jjdd*&()jshGGFNKL");
+        String email = "qademo" + randomNumber + "@mail.com";
+        String password = "Pass9833Whsh!@##jjdd*&()jshGGFNKL";
+
+        registerUser(email, password);
 
         RegisterPage.getRegisterButton(driver).click();
         WebDriverWait wait = new WebDriverWait(driver, 100);
@@ -143,6 +116,21 @@ public class RegisterTest extends BaseTestClass{
                 {"qademomail@.com", "Pa223jjssj!@#98wjs"},
                 {"qademo.com@", "Pa223jjssj!@#98wjs"}
         };
+    }
+
+    private void registerUser(String email, String password) {
+        WebElement emailField = RegisterPage.getEmailInputField(driver);
+        WebElement passwordField = RegisterPage.getPasswordInputField(driver);
+        // clear
+        emailField.sendKeys(Keys.CONTROL, "a");
+        emailField.sendKeys(Keys.BACK_SPACE);
+
+        passwordField.sendKeys(Keys.CONTROL, "a");
+        passwordField.sendKeys(Keys.BACK_SPACE);
+
+        // enter value
+        emailField.sendKeys(email);
+        passwordField.sendKeys(password);
     }
 
     @AfterClass(alwaysRun = true)
