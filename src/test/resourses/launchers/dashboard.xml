@@ -5,9 +5,9 @@
     <parameter name="browser" value="chrome" />
     <parameter name="url" value="http://practice.automationtesting.in/my-account/" />
     <parameter name="os" value="windows" />
-    <test name="register">
+    <test name="dashboard">
         <classes>
-            <class name="register.RegisterTest" />
+            <class name="dashboard.DefaultDashbaordTest" />
         </classes>
     </test>
 
